@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.WxUserMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.WxUser">
+		<id column="id" property="id" />
+		<result column="nickname" property="nickname" />
+		<result column="openid" property="openid" />
+		<result column="sex" property="sex" />
+		<result column="subscribe" property="subscribe" />
+		<result column="subscribeTime" property="subscribeTime" />
+		<result column="vipCard" property="vipCard" />
+		<result column="username" property="username" />
+		<result column="telPhone" property="telPhone" />
+		<result column="shopId" property="shopId" />
+	</resultMap>
+
+</mapper>

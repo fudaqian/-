@@ -1,0 +1,254 @@
+@layout("/common/_container.html"){
+		<style type="text/css">
+			html,body{width: 100%; height: 100%;background: #ee903c; margin: 0;padding: 0;overflow-x: hidden;}
+			.container{width:375px; height:667px;background: #ee903c; float:left;}
+			.container_z{    height: 95%; background: white;  padding-top: 10px;   margin-top: 15px;}
+			.container_z .center{width: 100%; text-align: center;}
+			.container_z section img{width: 92%;margin-left: 4%; height: 10rem;border-radius: 5px;}
+			.container_z .btn{text-decoration: none; color: white; padding: 0.5rem 4rem ; background: #ee903c ;border-radius: 5px;}
+			section{    margin-top: -1rem;}
+			section ul{margin: 0;padding: 0; list-style: none;}
+			section ul li{    margin-left: 5%;height: 2rem;line-height: 2rem;}
+			ul hr{ margin-left: 5%;opacity: 0.6;}
+			.margin_btm{ margin-bottom: 3rem;}
+			.margin_top{margin-top: 1.2rem;}
+			.opacity{opacity: 0.6; }
+			.letter{letter-spacing: 3px;}    
+			.instructions{font-size: 0.6rem;margin-left: 5%;}
+			.instructions .title{ font-weight: bold;}
+			.fontSize{font-size: 0.8rem;}
+			.positionR{ position: absolute; right: 5%; top: 50%; transform:translate(0,-50%); font-size: 0.8rem;}
+			.relative{position: relative;}
+			.margin_TB{margin: -0.5rem 0 1rem 5%;}
+		</style>
+<div id="app">
+	<div class="ibox float-e-margins">
+		<div class="ibox-content">
+			<div class="form-horizontal">
+				<div class="row">
+					<input type="hidden" id="contentDetail"> <input
+						type="hidden" id="type">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">*优惠券名称:</label>
+							<div class="col-sm-9">
+								<input class="form-control" id="couponName" name="couponName"
+									v-model="couponName">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">*优惠券面额:</label>
+							<div class="col-sm-9">
+								<input class="form-control" id="amount" name="amount"
+									v-model="amount">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">满多少金额可用:</label>
+							<div class="col-sm-9">
+								<input class="form-control" id="leastCost" name="leastCost"
+									v-model="leastCost">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">*有效期:</label>
+							<div class="col-sm-9">
+								<div class="radio">
+									<input type="radio" name="radio1" value="DATE_TYPE_FIX_TERM"
+										v-model="type"> <label for="radio1"> 领取后<input
+										id="fixedTerm" name="fixedTerm" v-model="fixedTerm"
+										style="width: 25px">天有效
+									</label>
+								</div>
+							</div>
+							<label class="col-sm-3 control-label"></label>
+							<div class="col-sm-9">
+								<div class="radio">
+									<input type="radio" name="radio1"
+										value="DATE_TYPE_FIX_TIME_RANGE" v-model="type"> <label
+										for="radio2"> <input type="text" style="width: 120px"
+										id="beginTimestamp" />至 <input type="text"
+										style="width: 120px" id="endTimestamp" />
+									</label>
+								</div>
+							</div>
+						</div>
+						<#input id="canUseNum" name="可用数量:" />					
+						<#input id="canParticipateNum" name="可分享数量:" />
+					   	<#input id="sharetitle" name="分享标题:" />
+                        <#input id="sharecontent" name="分享内容:" />
+                        <#avatar id="sharepicture" name="分享图片:" avatarImg=""/>
+                        
+                        <div class="form-group">
+							<label class="col-sm-3 control-label">员工奖励类型:</label>
+							<div class="col-sm-3">
+								<select class="form-control" id="stafftrewardtype" name="stafftrewardtype">
+									<option value="1">比例</option>
+									<option value="2">金额</option>
+								</select>
+							</div>
+							<div class="col-sm-3">
+								<input class="form-control" id="staffrewardvalue" name="staffrewardvalue" placeholder="例如：比例-0.05 或   金额-5">
+							</div>
+						</div>
+                        <div class="form-group">
+							<label class="col-sm-3 control-label">用户奖励类型:</label>
+							<div class="col-sm-3">
+								<select class="form-control" id="usertrewardtype" name="usertrewardtype">
+									<option value="2">券</option>
+									<option value="1">红包</option>
+								</select>
+							</div>
+							<div class="col-sm-3">
+								<select class="form-control" id="userrewardvalue" name="userrewardvalue">
+									<option value="2">券1</option>
+									<option value="1">劵2</option>
+								</select>
+							</div>
+						</div>			
+						<#textarea id="description" name="使用说明:" value=""/>
+											
+						<h4>活动详情</h4>
+						<div class="ibox-content no-padding">
+							<div id="summernote" class="summernote"></div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class='container'>	
+							<div class="container_z" id="indexPage">
+								<div class=" center">
+									<p class="opacity fontSize">${brandName}</p>
+									<h2 v-text="couponName"></h2>
+									<p class="opacity fontSize margin_btm letter">使用时向服务员出示此券</p>
+									<a href="javaScript:;" class="btn">立即使用</a>
+									<p class="opacity fontSize margin_top">现在购买立减<span v-text="amount"></span>元</p>
+								</div>
+								<p class="instructions">
+													<span class="title">使用说明 :</span> <span class="opacity" v-text="description"></span>
+												</p>
+								<p class="instructions margin_TB">
+													<span class="title">可用时间 :</span><span class="opacity" id="timeSpan"></span> </p>
+								<hr class="opacity" />
+												<br />
+								<section>
+									<img id="contentDetailImg" src="http://cms.ecommu.cn/rhadmin/kaptcha/fa16151a-7fb2-4ba6-b1fa-6922d4295891.jpg" />
+									<hr class="opacity" />
+									<ul>
+										<!-- <li class="relative">友宝礼品卡 <span class="positionR opacity">传递心意</span></li> -->
+									</ul>
+								</section>
+							</div>
+							<div class="container_z" id="contentDetailPage" style="display:none">
+								<div v-html="contentDetail"></div>
+							</div>
+						</div>
+						<#button btnCss="info" name="返回卡卷主页" id="ensure" icon=""
+						clickFun="returnIndex()" space="true" />
+					</div>
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="col-sm-12">
+					<#button btnCss="info" name="提交" id="ensure" icon="fa-check"
+						clickFun="CouponInfoDlg.addSubmit()" space="true" />
+					<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+						clickFun="CouponInfoDlg.close()" space="true" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/laydate/laydate.js"></script>
+<script src="${ctxPath}/static/modular/system/coupon/coupon_info.js"></script>
+<link href="${ctxPath}/static/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/plugins/summernote/summernote.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+<script src="${ctxPath}/static/js/plugins/summernote/summernote.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/summernote/summernote-zh-CN.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#summernote').summernote({
+			lang : 'zh-CN',
+			height : 400, // set editor height
+			width : 375,
+			minHeight : 300, // set minimum height of editor
+			maxHeight : 550, // set maximum height of editor
+			focus : true
+		// set focus to editable area after initializing summernote
+		});
+		$('.i-checks').iCheck({
+			checkboxClass : 'icheckbox_square-green',
+			radioClass : 'iradio_square-green',
+		});
+		
+		$(":radio").click(function(){
+			if(this.value == "DATE_TYPE_FIX_TERM"){
+				$("#timeSpan").html("领取后的"+coupon.fixedTerm+"天");
+			}else{
+				$("#timeSpan").html(coupon.beginTimestamp+"-"+coupon.endTimestamp);
+			}
+		});
+		$("#contentDetailImg").click(function(){
+			$("#indexPage").hide();
+			$("#contentDetailPage").show();
+			coupon.contentDetail = $('#summernote').code();
+		});
+	});
+
+	laydate.render({
+		elem : '#beginTimestamp',
+		showBottom : false,
+		done : function(value, date) {
+			coupon.beginTimestamp = value;
+		}
+	});
+	laydate.render({
+		elem : '#endTimestamp',
+		showBottom : false,
+		done : function(value, date) {
+			coupon.endTimestamp = value;
+		}
+	});
+	
+	function returnIndex() {
+		$("#indexPage").show();
+		$("#contentDetailPage").hide();
+	}
+
+	laydate.render({
+		elem : '#beginTimestamp',
+		showBottom : false,
+		change : function(value, date) {
+			console.log(value);
+			console.log(date);
+		}
+	});
+
+	function clickType() {
+
+	}
+
+	function getBeginLayDate() {
+
+	}
+	function getEndLayDate() {
+		//laydate({istime: false, format: 'YYYY-MM-DD'});
+	}
+
+	var coupon = new Vue({
+		el : '#app',
+		data : {
+			contentDetail : '',
+			couponName : '',
+			amount : '',
+			description : '',
+			type : '',
+			fixedTerm : '',
+			beginTimestamp : '',
+			leastCost : '',
+			endTimestamp : ''
+		}
+	})
+</script>
+@}

@@ -1,0 +1,39 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="merchantname" name="账户名" value="${item.merchantname}" underline="true" readonly="readonly"/>
+                            <#input id="enterprisename" name="企业名称" value="${item.enterprisename}" underline="true"/>
+                            <#input id="address" name="企业地址" value="${item.address}" underline="true"/>
+                            <#input id="idcard" name="法人身份证" value="${item.idcard}" underline="true"/>
+                            <#avatar id="idcardfront" name="身份证正面" underline="true" avatarImg="${item.idcardfront}"/>
+                            <#avatar id="idcardback" name="身份证背面" underline="true" avatarImg="${item.idcardback}"/>
+                </div>
+
+                <div class="col-sm-6">
+               				<#input id="mobile" name="手机号" value="${item.mobile}" underline="true"/>
+                            <#input id="enddate" name="截止日期" value="${item.enddate}" clickFun="laydate({istime: false, format: 'YYYY-MM-DD'})" underline="true"/>
+                            <#input id="appid" name="公众号appid" value="${item.appid}" underline="true"/>
+                            <#input id="secret" name="公众号密钥" value="${item.secret}" underline="true"/>
+                            <#avatar id="license" name="营业执照" avatarImg="${item.license}" underline="true"/>
+                            <#avatar id="logo" name="logo" underline="true" avatarImg="${item.logo}"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CardMerchantinfoInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="CardMerchantinfoInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/merchantinfo/cardMerchantinfo_info.js"></script>
+@}

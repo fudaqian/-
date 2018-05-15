@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.CardMerchantinfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="CardMerchantinfo">
+        <id column="id" property="id" />
+        <result column="merchantname" property="merchantname" />
+        <result column="enterprisename" property="enterprisename" />
+        <result column="address" property="address" />
+        <result column="license" property="license" />
+        <result column="idcard" property="idcard" />
+        <result column="mobile" property="mobile" />
+        <result column="paydate" property="paydate" />
+        <result column="enddate" property="enddate" />
+        <result column="paymoney" property="paymoney" />
+        <result column="appid" property="appid" />
+        <result column="secret" property="secret" />
+        <result column="deptid" property="deptid" />
+        <result column="idcardfront" property="idcardfront" />
+        <result column="idcardback" property="idcardback" />
+        <result column="logo" property="logo" />
+        <result column="accessToken" property="accessToken" />
+        <result column="expiresIn" property="expiresIn" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, merchantname, enterprisename, address, license, idcard, mobile, paydate, enddate, paymoney, appid, secret, deptid, idcardfront, idcardback, logo,accessToken
+    </sql>
+
+	<select id="getListByName" resultType="map">
+	
+		select * from card_merchantinfo 
+		 <if test="name != null and name != ''">
+            where merchantname like CONCAT('%',#{name},'%') or enterprisename like CONCAT('%',#{name},'%')
+        </if>
+        order by id DESC
+	</select>
+	
+	<select id="getModelByDeptid" resultType="CardMerchantinfo">
+	
+		select * from card_merchantinfo where deptid = #{deptid}
+	</select>
+	
+	
+</mapper>

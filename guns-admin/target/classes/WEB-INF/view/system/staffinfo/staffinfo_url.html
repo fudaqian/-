@@ -1,0 +1,21 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-12" >
+                     <#textarea id="url" name="新增员工URL" value="${url}" underline="true"/>
+                </div>
+                <div class="col-sm-12" >
+                     <#textarea id="staffUrl" name="员工登录授权URL" value="${staffUrl}" underline="true"/>
+                </div>
+                <div class="col-sm-12" >
+                     <#textarea id="userUrl" name="客户登录授权URL" value="${userUrl}" underline="true"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/staffinfo/staffinfo_info.js"></script>
+@}

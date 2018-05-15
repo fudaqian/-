@@ -1,0 +1,170 @@
+@layout("/common/_container.html"){
+<div id="app">
+	<div class="ibox float-e-margins">
+		<div class="ibox-content">
+			<div class="form-horizontal">
+				<div class="row">
+					<input type="hidden" id="id" value="${coupon.id}"> 
+					<input type="hidden" id="contentDetail"> 
+					<input type="hidden" id="type" value="${coupon.type}"> 
+					<input type="hidden" id="typeValue" value=""> 
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">*优惠券名称:</label>
+							<div class="col-sm-8">
+								<input class="form-control" id="couponName" name="couponName"
+									v-model="couponName">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">*优惠券面额:</label>
+							<div class="col-sm-8">
+								<input class="form-control" id="amount"
+									name="amount" v-model="amount">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">满多少金额可用:</label>
+							<div class="col-sm-8">
+								<input class="form-control" id="leastCost"
+									name="leastCost" v-model="leastCost">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">*有效期:</label>
+							<div class="col-sm-8">
+								<div class="radio">
+									<input type="radio" name="radio1" 
+										value="DATE_TYPE_FIX_TERM" v-model="type">
+									<label for="radio1"> 领取后<input id="fixedTerm"
+										name="fixedTerm" v-model="fixedTerm" style="width: 25px">天有效
+									</label>
+								</div>
+							</div>
+							<label class="col-sm-3 control-label"></label>
+							<div class="col-sm-8">
+								<div class="radio"> 
+									<input type="radio" name="radio1" 
+										value="DATE_TYPE_FIX_TIME_RANGE" v-model="type"> <label
+										for="radio2"> <input type="text" style="width: 120px"
+										id="beginTimestamp" value="${coupon.beginTimestamp}"/>至 <input type="text"
+										style="width: 120px" id="endTimestamp" value="${coupon.endTimestamp}" />
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">使用说明:</label>
+							<div class="col-sm-8">
+								<input class="form-control" id="description" name="description"
+									v-model="description">
+							</div>
+						</div>
+
+						<h4>图文详情</h4>
+						<div class="ibox-content no-padding">
+							<div id="summernote" class="summernote">
+								${coupon.contentDetail}
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<#button btnCss="info" name="图文详情" id="detaiBtn" icon="fa-check"
+							clickFun="contentDetail()" space="true" />
+						<div v-text="couponName"></div>
+						<div v-text="amount"></div>
+						<div v-text="description"></div>
+						<div v-text="type"></div>
+						<div v-text="fixedTerm"></div>
+						<div v-text="endTimestamp"></div>
+						<div v-text="beginTimestamp"></div>
+						<div v-text="leastCost"></div>
+						<div v-html="contentDetail"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="col-sm-12">
+					<#button btnCss="info" name="提交" id="ensure" icon="fa-check"
+						clickFun="CouponInfoDlg.editSubmit()" space="true" />
+					<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+						clickFun="CouponInfoDlg.close()" space="true" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/laydate/laydate.js"></script>
+<script src="${ctxPath}/static/modular/system/coupon/coupon_info.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#summernote').summernote({
+			lang : 'zh-CN',
+			height : 400, // set editor height
+			minHeight : 300, // set minimum height of editor
+			maxHeight : 550, // set maximum height of editor
+			focus : true
+		// set focus to editable area after initializing summernote
+		});
+		$('.i-checks').iCheck({
+			checkboxClass : 'icheckbox_square-green',
+			radioClass : 'iradio_square-green',
+		});
+	});
+
+	laydate.render({
+		elem : '#beginTimestamp',
+		showBottom : false,
+		done : function(value, date) {
+			coupon.beginTimestamp = value;
+		}
+	});
+	laydate.render({
+		elem : '#endTimestamp',
+		showBottom : false,
+		done : function(value, date) {
+			coupon.endTimestamp = value;
+		}
+	});
+
+	function contentDetail() {
+		coupon.contentDetail = $('#summernote').code();
+	}
+
+	function ceshi() {
+		console.log($('#beginTimestamp').val());
+		console.log($('#endTimestamp').val());
+		coupon.beginTimestamp = $('#beginTimestamp').val();
+		coupon.endTimestamp = $('#endTimestamp').val();
+	}
+
+	laydate.render({
+		elem : '#beginTimestamp',
+		showBottom : false,
+		change : function(value, date) {
+			console.log(value);
+			console.log(date);
+		}
+	});
+
+	function clickType() {
+		
+	}
+
+	var coupon = new Vue({
+		el : '#app',
+		data : {
+			contentDetail : '',
+			couponName : '${coupon.couponName}',
+			amount : '${coupon.amount}',
+			description : '${coupon.description}',
+			type : '${coupon.type}',
+			fixedTerm : '${coupon.fixedTerm}',
+			beginTimestamp : '',
+			leastCost : '${coupon.leastCost}',
+			endTimestamp : ''
+		}
+	})
+</script>
+@}

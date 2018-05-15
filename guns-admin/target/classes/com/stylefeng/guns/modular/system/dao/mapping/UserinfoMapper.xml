@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.UserinfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.Userinfo">
+        <id column="id" property="id" />
+        <result column="merchantid" property="merchantid" />
+        <result column="openid" property="openid" />
+        <result column="head" property="head" />
+        <result column="nickname" property="nickname" />
+        <result column="mobile" property="mobile" />
+        <result column="isfollow" property="isfollow" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, merchantid, openid, head, nickname, mobile, isfollow
+    </sql>
+
+	<select id="getListByCondition" resultType="map">
+		select * from card_userinfo 
+		where 1 = 1
+		<if test="merchantid != null and merchantid != ''">
+			 and merchantid = #{merchantid}
+		</if>
+		<if test="mobile != null and mobile != ''">
+			 and mobile like CONCAT('%',#{mobile},'%')
+		</if>
+		<if test="isfollow != null and isfollow != ''">
+			and isfollow = #{isfollow}
+		</if>
+		<if test="isfollow == 0">
+			and isfollow = #{isfollow}
+		</if>
+	</select>
+	
+	<select id="getUserInfoByOpenid" resultType="Userinfo">
+	
+		select * from card_userinfo where openid = #{openid}
+	</select>
+	
+</mapper>
